@@ -1,0 +1,27 @@
+/* ---------- page de script d'appel : une étape = un bloc, une réponse = une case ---------- */
+.page { max-width: 50rem; }
+.tel { font-size: 1.6rem; font-weight: 700; color: var(--accent-fort); font-variant-numeric: tabular-nums; }
+.etape { background: var(--bg-1); border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.2rem; margin: 1.2rem 0; box-shadow: var(--ombre-1); }
+.etape h2 { margin: 0 0 .6rem; border: none; padding: 0; font-size: 1.05rem; }
+.etape h2 .n { display: inline-block; min-width: 1.6em; color: var(--accent); font-variant-numeric: tabular-nums; }
+.dire { font-size: 1.1rem; line-height: 1.6; background: var(--accent-bg); border-left: 3px solid var(--accent); padding: .7em 1em; border-radius: 0 6px 6px 0; margin: .5rem 0 .8rem; }
+.dire b { color: var(--accent-fort); }
+.aide { font-size: .85rem; color: var(--text-dim); margin: .2rem 0 .6rem; }
+.rep { margin: .2rem 0; }
+.rep > label { display: flex; gap: .6em; align-items: flex-start; padding: .35em .5em; border-radius: 6px; cursor: pointer; font-size: .97rem; }
+.rep > label:hover { background: var(--bg-2); }
+.rep input[type=radio], .rep input[type=checkbox] { margin-top: .3em; flex: none; }
+.suite { display: none; margin: .3rem 0 .6rem 2.1rem; padding: .6rem .9rem; border-left: 2px dashed var(--border-fort); font-size: .95rem; }
+.suite .dire { font-size: 1rem; margin: .3rem 0; }
+.rep.coche > .suite { display: block; }
+.note { width: 100%; box-sizing: border-box; font: inherit; font-size: .93rem; padding: .35em .6em; border: 1px solid var(--border-fort); border-radius: 6px; background: var(--bg-0); color: var(--text-h); margin-top: .3rem; }
+.fin { background: var(--bg-2); border-radius: 6px; padding: .5em .8em; margin-top: .4rem; font-size: .92rem; }
+.barre { display: flex; gap: .6rem; flex-wrap: wrap; margin: .8rem 0; }
+button { font: inherit; font-weight: 600; padding: .5em 1em; border-radius: 8px; border: 1px solid var(--border-fort); background: var(--bg-1); color: var(--text-h); cursor: pointer; box-shadow: var(--ombre-2); }
+button.principal { background: var(--accent); color: #fff; border-color: transparent; }
+button:hover { box-shadow: var(--ombre-3); }
+.mini { font-size: .85rem; color: var(--text-dim); }
+.liste-scripts a { display: block; padding: .7rem 1rem; margin: .5rem 0; background: var(--bg-1); border: 1px solid var(--border); border-radius: 8px; border-bottom-style: solid; color: var(--text-h); font-weight: 600; box-shadow: var(--ombre-2); }
+.liste-scripts a small { display: block; font-weight: 400; color: var(--text-dim); }
+@media (prefers-color-scheme: dark) { button.principal { color: var(--bg-0); } }
+@media print { button, .barre { display: none; } .suite { display: block; } }

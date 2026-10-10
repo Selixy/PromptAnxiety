@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>PromptAnxiety · éditeur de scripts</title>
+<link rel="stylesheet" href="src/style/style.css">
+<script>window.MANIFESTE = [{"slug": "appel-orpi", "titre": "Appel agence immobilière (location)"}];
+window.SCRIPTS = {"appel-orpi": {"titre": "Appel agence immobilière (location)", "sous_titre": "3 pièces meublé neuf, quartier [quartier] · 1 250 € CC · réf. [annonce]", "numero": "01 XX XX XX XX", "intro": "Agence [nom], [adresse]. Service location fermé le samedi soir : mail via l'annonce, rappel lundi 9 h. Coche ce qu'on te répond, la réplique suivante apparaît.", "etapes": [{"titre": "Qui décroche", "dire": "« Bonjour, j'appelle pour votre annonce de location du **3 pièces meublé neuf à [ville]**, quartier [quartier], à 1 250 € charges comprises, référence [réf. de l'annonce]. Je peux parler à la personne qui gère ce bien ? »", "mode": "une", "reponses": [{"texte": "C'est la bonne personne, ou elle me passe quelqu'un", "suite": "Note son prénom, puis étape 1.", "note": "Prénom, poste"}, {"texte": "La personne est absente, « rappelez lundi »", "replique": "« D'accord. Je peux vous laisser mon nom et mon numéro pour qu'elle me rappelle ? On est deux, dossier complet avec deux garantes, disponibles sous quinze jours. À quelle heure est-elle là lundi ? »", "suite": "Note l'heure, puis va directement à l'étape 5 pour envoyer le mail ce soir.", "note": "Nom de la personne, heure lundi"}, {"texte": "Répondeur", "replique": "« Bonjour, [Prénom Nom], j'appelle pour le 3 pièces meublé quartier [quartier] à 1 250 €, référence [réf. de l'annonce]. Nous sommes deux, dossier complet avec deux garantes, disponibles pour emménager sous quinze jours, libres pour visiter de mercredi à samedi. Mon numéro : … Merci, bonne soirée. »", "suite": "Puis étape 5 : mail ce soir, rappel lundi 9 h."}]}, {"titre": "Disponibilité", "dire": "« Est-ce que l'appartement est **toujours disponible**, et à partir de quelle date ? »", "mode": "une", "reponses": [{"texte": "Oui, disponible", "suite": "Note la date, puis étape 2.", "note": "Disponible à partir du…"}, {"texte": "Disponible mais des dossiers sont déjà déposés", "replique": "« On peut quand même visiter et déposer le nôtre ? Il est complet, avec deux garantes propriétaires, et on peut signer vite. »", "suite": "Si oui, étape 2.", "note": "Combien de dossiers, depuis quand"}, {"texte": "Déjà loué", "replique": "« Dommage. Vous avez **d'autres lots dans la résidence** ou dans la ville, un 3 pièces autour de 1 250 € ? Sinon je vous laisse notre dossier pour le prochain qui se libère. »", "sous": [{"texte": "Il propose un autre bien", "suite": "Note-le et déroule les étapes 2 à 4 pour ce bien.", "note": "Adresse, pièces, loyer"}, {"texte": "Rien d'autre", "suite": "Demande son mail pour envoyer le dossier, puis étape 5."}]}]}, {"titre": "Qui vous êtes", "dire": "« On est **deux étudiants en fin de master**, en **colocation**, on cherche à **rester plusieurs années** et on peut emménager **dans les quinze jours**. Le dossier est complet, avec **deux garantes propriétaires** : une en CDI à 6 000 € net, une à 2 500 €. »", "mode": "une", "reponses": [{"texte": "« Très bien, pas de souci »", "suite": "Étape 3."}, {"texte": "« Le propriétaire ne veut pas de colocation »", "replique": "« Même avec un **bail unique** et une **clause de solidarité** ? Chacune des garantes couvre la totalité du loyer, c'est plus sûr qu'un locataire seul. Vous pouvez lui poser la question ? »", "sous": [{"texte": "Il accepte ou va demander", "suite": "Étape 3."}, {"texte": "Refus net", "suite": "Demande les autres lots (étape 1, dernier cas), puis étape 5."}]}, {"texte": "« Quels sont vos revenus à vous ? »", "replique": "« On est étudiants, **rattachés fiscalement à nos parents**, donc nos revenus propres sont faibles. C'est exactement pour ça qu'on vient avec deux garantes solides, dont les avis d'impôt et bulletins sont dans le dossier. »", "sous": [{"texte": "Ça lui va", "suite": "Étape 3."}, {"texte": "Il parle de Visale ou de garantie", "replique": "« Si le propriétaire préfère Visale, on peut l'obtenir en 48 h, mais on ne peut pas cumuler avec les garantes. Vous préférez quoi ? »", "note": "Sa préférence"}, {"texte": "Refus", "replique": "« C'est au propriétaire de trancher, vous pouvez lui soumettre le dossier ? »", "suite": "Puis étape 5."}]}, {"texte": "« Le propriétaire veut des salariés »", "replique": "« On est en fin d'études, donc en entrée dans la vie active dans l'année, et le loyer est garanti par deux cautions solidaires. Est-ce qu'il accepterait de voir le dossier avant de décider ? »", "sous": [{"texte": "Il soumet", "suite": "Étape 3."}, {"texte": "Non", "suite": "Autres lots, puis étape 5."}]}]}, {"titre": "La visite", "dire": "« **Quand est-ce qu'on peut visiter ?** On est libres tous les jours de **mercredi à samedi**, toute la journée. »", "mode": "une", "reponses": [{"texte": "Il propose un créneau", "suite": "Accepte le premier possible, sans réfléchir.", "note": "Jour, heure, lieu de rendez-vous"}, {"texte": "Visite groupée ou portes ouvertes", "replique": "« Parfait, on y sera tous les deux avec le dossier imprimé. Vous prenez les dossiers sur place ? »", "note": "Jour, heure"}, {"texte": "« Envoyez d'abord le dossier »", "replique": "« D'accord, je vous l'envoie ce soir. Vous voulez quelles pièces exactement, et à quelle adresse ? »", "suite": "Coche ce qu'il demande. Rappel : relevé bancaire, photo, casier sont interdits.", "note": "Adresse mail ou lien de dépôt", "sous": [{"texte": "Pièces d'identité (locataires et garantes)"}, {"texte": "Certificats de scolarité ou cartes étudiantes"}, {"texte": "3 bulletins de salaire des garantes"}, {"texte": "Avis d'impôt 2025 des garantes"}, {"texte": "Justificatifs de domicile"}, {"texte": "Taxe foncière des garantes (propriétaires)"}, {"texte": "Autre chose", "note": "Quoi ?"}]}]}, {"titre": "Les chambres", "dire": "« L'annonce dit T2 dans le titre et F3 dans le texte : il y a bien **deux chambres fermées** ? »", "mode": "une", "reponses": [{"texte": "Deux chambres fermées"}, {"texte": "Une chambre plus séjour à partager", "suite": "Pour deux, c'est bloquant. Demande s'il a un vrai 3 pièces ailleurs."}]}, {"titre": "Les charges et le parking", "dire": "« Les **186 € de charges** comprennent quoi ? Le chauffage, l'eau chaude ? Et la **place de parking** est comprise dans le loyer ? »", "aide": "Pas de voiture : si le parking est en option, ne pas le prendre.", "mode": "plusieurs", "reponses": [{"texte": "Chauffage inclus"}, {"texte": "Eau chaude et froide incluses"}, {"texte": "Seulement les parties communes", "suite": "Prévoir 80 à 120 € d'énergie en plus par mois."}, {"texte": "Parking inclus"}, {"texte": "Parking en option payante", "replique": "« On n'en a pas besoin, on peut le retirer du bail ? »"}]}, {"titre": "Le mobilier", "dire": "« Le mobilier, c'est quoi exactement ? Il y a une **table, des chaises, des rangements, de la vaisselle** ? »", "aide": "Les photos montrent : canapé-lit, table basse, deux lits, frigo, four, plaque, hotte, lave-linge. Pas de table ni de chaises visibles.", "mode": "une", "reponses": [{"texte": "Complet, inventaire fourni"}, {"texte": "Partiel, à compléter avant l'entrée", "replique": "« D'accord. Un meublé doit avoir literie, table et chaises, rangements, vaisselle : ce sera complété avant la remise des clés ? »", "note": "Ce qui manque, ce qu'il s'engage à ajouter"}]}, {"titre": "Le loyer et les frais", "dire": "« Le **loyer de référence majoré** est indiqué sur le bail ? Et c'est bien **2 128 € de dépôt** et **887 € d'honoraires**, rien d'autre à la signature ? »", "aide": "Si la ville est en encadrement des loyers. Pose la question calmement, c'est une carte pour plus tard.", "mode": "plusieurs", "reponses": [{"texte": "Il donne le loyer de référence", "note": "Montant"}, {"texte": "Il ne sait pas ou élude", "suite": "N'insiste pas. On vérifiera sur le simulateur officiel de l'encadrement des loyers."}, {"texte": "Dépôt et honoraires confirmés"}, {"texte": "Autres montants", "note": "Lesquels"}]}, {"titre": "Le propriétaire", "dire": "« Le propriétaire est un particulier ? Il cherche des locataires qui **restent longtemps** ? Et vous avez **d'autres biens dans cette résidence** ? »", "aide": "Vous voulez rester 3 ans et plus ; un bail meublé fait 1 an renouvelable. L'agence a au moins un T2 au 6e dans l'immeuble.", "mode": "plusieurs", "reponses": [{"texte": "Il veut du long terme", "suite": "Dis que c'est exactement votre projet."}, {"texte": "Il veut garder la main (revente, usage perso)", "suite": "Risque de congé au bout d'un an. Ne pas bloquer, continuer à chercher du nu en parallèle."}, {"texte": "C'est l'agence qui gère tout (gestion locative)", "suite": "Bon signe : l'agence décide vite et préfère un dossier solide."}, {"texte": "D'autres biens dans la résidence", "note": "Lesquels, à quel prix"}]}, {"titre": "Conclure", "dire": "« Merci beaucoup. Je vous **confirme par mail ce soir** avec les premières pièces, et je vous apporte le dossier complet à la visite. Vous préférez le mail de l'agence ou une adresse directe ? »", "mode": "une", "reponses": [{"texte": "Mail de l'agence"}, {"texte": "Adresse ou numéro direct", "note": "Mail ou numéro de l'interlocuteur"}]}], "apres": "Dès que tu raccroches : mail de confirmation en moins d'une heure (créneau, vos deux noms, « dossier avec deux garantes propriétaires », pièces jointes disponibles : pièces d'identité, certificats de scolarité, et pour la garante du colocataire bulletins et avis d'impôt ce soir). Prévenir l'autre garante pour ses papiers sous deux jours. Si l'appel a échoué, même mail via le formulaire de l'annonce, et rappel lundi 9 h.", "slug": "appel-orpi"}};</script>
+<script src="src/vendor/vue.global.prod.js"></script>
+<script defer src="src/page/rendu.js"></script>
+<script defer src="src/editeur/app.js"></script>
+</head>
+<body class="editeur">
+<div id="app" v-cloak>
+  <div class="bandeau">
+    <h1>PromptAnxiety</h1>
+    <select v-model="slugOuvert" @change="ouvrir(slugOuvert)">
+      <option value="">Ouvrir un script…</option>
+      <option v-for="m in manifeste" :key="m.slug" :value="m.slug">{{ m.titre }}</option>
+    </select>
+    <button type="button" @click="nouveau">Nouveau</button>
+    <button type="button" @click="$refs.fichier.click()">Importer un .json</button>
+    <input type="file" ref="fichier" accept=".json" hidden @change="importer">
+    <template v-if="serveur">
+      <button type="button" class="principal" @click="enregistrer" :disabled="!modifie">{{ modifie ? "Enregistrer" : "Enregistré" }}</button>
+      <a class="bouton" :href="'Output/' + script.slug + '.html'" target="_blank" rel="noopener">Ouvrir la page</a>
+      <button type="button" class="petit danger" @click="supprimer" v-if="existe">Supprimer</button>
+    </template>
+    <template v-else>
+      <button type="button" class="principal" @click="exporter">Exporter le .json</button>
+    </template>
+    <span class="mini">{{ etat }}</span>
+  </div>
+
+  <div class="colonnes">
+    <div class="formulaire">
+      <h2>Le script</h2>
+      <div class="champ"><label>Identifiant (nom du fichier : minuscules, chiffres, tirets)</label><input v-model.trim="script.slug" @input="script.slug = slugifier(script.slug)" :disabled="serveur && existe"></div>
+      <div class="champ"><label>Titre</label><input v-model="script.titre"></div>
+      <div class="champ"><label>Sous-titre (séparer par « · »)</label><input v-model="script.sous_titre"></div>
+      <div class="champ"><label>Numéro à appeler</label><input v-model="script.numero"></div>
+      <div class="champ"><label>Consigne d'introduction</label><textarea v-model="script.intro"></textarea></div>
+
+      <h2>Les étapes</h2>
+      <div class="bloc-etape" v-for="(et, i) in script.etapes" :key="i">
+        <div class="entete">
+          <h3>{{ i }}. {{ et.titre }}</h3>
+          <button type="button" class="petit" @click="deplacer(script.etapes, i, -1)">↑</button>
+          <button type="button" class="petit" @click="deplacer(script.etapes, i, 1)">↓</button>
+          <button type="button" class="petit danger" @click="retirer(script.etapes, i, 'cette étape')">Supprimer</button>
+        </div>
+        <div class="champ"><label>Titre de l'étape</label><input v-model="et.titre"></div>
+        <div class="champ"><label>La phrase à dire (**gras** pour les mots clés)</label><textarea v-model="et.dire"></textarea></div>
+        <div class="champ"><label>Aide-mémoire (petit texte gris)</label><input v-model="et.aide"></div>
+        <div class="champ"><label>Type de réponses</label><select v-model="et.mode"><option value="une">Une seule réponse (radio)</option><option value="plusieurs">Plusieurs réponses (cases)</option></select></div>
+
+        <div class="bloc-reponse" v-for="(r, j) in et.reponses" :key="j">
+          <div class="entete"><span>Réponse {{ j + 1 }}</span>
+            <button type="button" class="petit" @click="deplacer(et.reponses, j, -1)">↑</button>
+            <button type="button" class="petit" @click="deplacer(et.reponses, j, 1)">↓</button>
+            <button type="button" class="petit danger" @click="retirer(et.reponses, j, 'cette réponse')">×</button>
+          </div>
+          <div class="champ"><label>Ce qu'il répond</label><input v-model="r.texte"></div>
+          <div class="champ"><label>Ma réplique</label><textarea v-model="r.replique"></textarea></div>
+          <div class="champ"><label>Et ensuite (consigne)</label><input v-model="r.suite"></div>
+          <div class="champ"><label>Champ de note (texte d'invite, vide = pas de champ)</label><input v-model="r.note"></div>
+          <div class="bloc-sous" v-for="(s, k) in r.sous" :key="k">
+            <div class="entete"><span>Sous-cas {{ k + 1 }}</span><button type="button" class="petit danger" @click="retirer(r.sous, k, 'ce sous-cas')">×</button></div>
+            <div class="champ"><label>Cas</label><input v-model="s.texte"></div>
+            <div class="champ"><label>Réplique</label><textarea v-model="s.replique"></textarea></div>
+            <div class="champ"><label>Ensuite</label><input v-model="s.suite"></div>
+            <div class="champ"><label>Champ de note</label><input v-model="s.note"></div>
+          </div>
+          <div class="ajout"><button type="button" class="petit" @click="(r.sous || (r.sous = [])).push(sousVide())">+ sous-cas</button></div>
+        </div>
+        <div class="ajout"><button type="button" class="petit" @click="(et.reponses || (et.reponses = [])).push(reponseVide())">+ réponse</button></div>
+        <div class="champ"><label>Champ de note en bas de l'étape (invite, vide = aucun)</label><input v-model="et.note"></div>
+      </div>
+      <div class="ajout"><button type="button" class="petit" @click="script.etapes.push(etapeVide())">+ étape</button></div>
+
+      <h2>Après l'appel</h2>
+      <div class="champ"><label>Ce qu'il faut faire juste après</label><textarea v-model="script.apres"></textarea></div>
+    </div>
+    <div class="apercu" ref="apercu"></div>
+  </div>
+</div>
+</body>
+</html>

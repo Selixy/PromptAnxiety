@@ -1,0 +1,28 @@
+/* ---------- éditeur : formulaire à gauche, aperçu à droite ---------- */
+body.editeur { padding: 0; }
+.editeur .bandeau { position: sticky; top: 0; z-index: 2; display: flex; gap: .6rem; align-items: center; flex-wrap: wrap; padding: .7rem 1.2rem; background: var(--bg-1); border-bottom: 1px solid var(--border); box-shadow: var(--ombre-1); }
+.editeur .bandeau h1 { font-size: 1.1rem; margin: 0 1rem 0 0; }
+.editeur .bandeau select { font: inherit; padding: .4em .6em; border-radius: 6px; border: 1px solid var(--border-fort); background: var(--bg-0); color: var(--text-h); }
+.editeur .colonnes { display: grid; grid-template-columns: minmax(22rem, 1fr) minmax(22rem, 1fr); gap: 0; min-height: calc(100vh - 3.5rem); }
+.editeur .formulaire { padding: 1rem 1.2rem 4rem; border-right: 1px solid var(--border); overflow-y: auto; }
+.editeur .apercu { padding: 0 1.2rem 4rem; overflow-y: auto; background: var(--bg-0); }
+.editeur .apercu .page { padding-top: 1rem; }
+.champ { margin: .5rem 0; }
+.champ label { display: block; font-size: .74rem; text-transform: uppercase; letter-spacing: .06em; color: var(--text-dim); font-weight: 600; }
+.champ input, .champ textarea, .champ select { width: 100%; box-sizing: border-box; font: inherit; font-size: .93rem; padding: .35em .6em; border: 1px solid var(--border-fort); border-radius: 6px; background: var(--bg-0); color: var(--text-h); }
+.champ textarea { min-height: 3.2em; resize: vertical; }
+.bloc-etape { background: var(--bg-1); border: 1px solid var(--border); border-radius: 8px; padding: .8rem 1rem; margin: 1rem 0; box-shadow: var(--ombre-1); }
+.bloc-etape > .entete { display: flex; align-items: center; gap: .5rem; }
+.bloc-etape > .entete h3 { margin: 0; flex: 1; color: var(--text-h); font-size: 1rem; }
+.bloc-reponse { margin: .6rem 0 .6rem .8rem; padding: .6rem .8rem; border-left: 3px solid var(--border-fort); background: var(--bg-0); border-radius: 0 6px 6px 0; }
+.bloc-reponse .entete { display: flex; align-items: center; gap: .4rem; font-size: .8rem; color: var(--text-dim); }
+.bloc-reponse .entete span { flex: 1; }
+.bloc-sous { margin: .4rem 0 .4rem .8rem; padding: .4rem .6rem; border-left: 2px dashed var(--border-fort); }
+.petit { font-size: .8rem; padding: .25em .6em; box-shadow: none; }
+.petit.danger:hover { border-color: #b33; color: #b33; }
+.ajout { margin: .4rem 0; }
+@media (max-width: 960px) { .editeur .colonnes { grid-template-columns: 1fr; } .editeur .formulaire { border-right: none; border-bottom: 1px solid var(--border); } }
+[v-cloak] { display: none; }
+.editeur .bandeau a.bouton { font-weight: 600; padding: .5em 1em; border-radius: 8px; border: 1px solid var(--border-fort); background: var(--bg-1); color: var(--text-h); box-shadow: var(--ombre-2); }
+.editeur .bandeau a.bouton:hover { box-shadow: var(--ombre-3); background: var(--bg-1); color: var(--accent); }
+button:disabled { opacity: .55; cursor: default; box-shadow: none; }

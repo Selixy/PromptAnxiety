@@ -1,0 +1,69 @@
+/* Jetons : design pattern du portfolio (selixy.dev, thème clair) :
+   une seule couleur d'accent, le reste en neutres. Élévation sur 3 niveaux. */
+:root {
+  /* surfaces, du fond vers l'avant */
+  --bg-0: #f6f5f9;  /* fond de page   (surface-alt) */
+  --bg-1: #ffffff;  /* surfaces posées (surface) */
+  --bg-2: #edeaf3;  /* pastilles, code, en-têtes */
+  --bg-3: #e2deec;  /* surface-raised */
+
+  /* encres neutres */
+  --text: #2e2a3a;      /* fg-soft */
+  --text-h: #1b1532;    /* fg */
+  --text-dim: #716b8c;  /* fg-faint */
+  --border: #e4dff2;
+  --border-fort: #d1cae6;
+
+  /* accent unique (violet-indigo du portfolio) */
+  --accent: #2a159d;
+  --accent-fort: #241287;
+  --accent-bg: rgba(43, 21, 158, 0.08);
+  --encre-titre: #332b63;  /* encre légèrement violacée pour les grands titres */
+
+  /* élévations : 1 = lecture, 2 = cliquable, 3 = survol */
+  --ombre-1: 0 1px 2px -1px rgba(46, 29, 94, 0.12);
+  --ombre-2: 0 2px 4px -2px rgba(46, 29, 94, 0.08), 0 6px 16px -10px rgba(46, 29, 94, 0.18);
+  --ombre-3: 0 4px 10px -4px rgba(74, 48, 210, 0.16), 0 16px 36px -16px rgba(46, 29, 94, 0.26);
+
+  --sans: 'Inter', system-ui, 'Segoe UI', Roboto, sans-serif;
+  --mono: ui-monospace, 'Cascadia Code', Consolas, monospace;
+
+  color-scheme: light;
+}
+
+/* Thème sombre : même design pattern, palette retournée. 100 % natif, aucun
+   JavaScript ni bouton : le navigateur (ou le système) annonce sa préférence
+   via prefers-color-scheme, et color-scheme aligne en plus les éléments
+   dessinés par le navigateur lui-même (ascenseurs, champs, menus). */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* surfaces : on s'éclaircit en montant, comme en clair on s'assombrit.
+       Fonds volontairement désaturés (~16 %, teinte 248-250°) : des neutres
+       sombres à peine violacés, pour que la couleur reste à l'accent seul,
+       comme en thème clair. */
+    --bg-0: #15141c;
+    --bg-1: #1f1e29;
+    --bg-2: #292735;
+    --bg-3: #353246;
+
+    --text: #cdc9dd;
+    --text-h: #f2effb;
+    --text-dim: #9a93b5;
+    --border: #322f41;
+    --border-fort: #423e56;
+
+    /* l'accent du portfolio est trop sombre pour un fond sombre : même teinte,
+       remontée en luminosité jusqu'à un contraste confortable sur --bg-0 */
+    --accent: #a99cff;
+    --accent-fort: #c6bdff;
+    --accent-bg: rgba(169, 156, 255, 0.14);
+    --encre-titre: #d9d3ff;
+
+    /* les ombres violettes disparaissent sur fond sombre : on passe au noir */
+    --ombre-1: 0 1px 2px -1px rgba(0, 0, 0, 0.5);
+    --ombre-2: 0 2px 4px -2px rgba(0, 0, 0, 0.45), 0 6px 16px -10px rgba(0, 0, 0, 0.6);
+    --ombre-3: 0 4px 10px -4px rgba(0, 0, 0, 0.5), 0 16px 36px -16px rgba(0, 0, 0, 0.72);
+
+    color-scheme: dark;
+  }
+}

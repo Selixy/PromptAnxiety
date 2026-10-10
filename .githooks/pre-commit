@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Dès qu'un fichier de src/ est dans le commit : on recompile, et on ajoute
+# editeur.html (distribué, commité). Output/ n'est jamais commité : c'est ce
+# que chaque utilisateur génère avec l'outil.
+# Activé par : src/installer-hooks.sh  (git config core.hooksPath .githooks)
+set -euo pipefail
+cd "$(git rev-parse --show-toplevel)"
+if git diff --cached --name-only | grep -q '^src/'; then
+  python3 src/compiler.py
+  git add editeur.html
+fi

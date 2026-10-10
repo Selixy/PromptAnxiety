@@ -1,0 +1,8 @@
+/* Point d'entrée : jetons et blocs partagés avec les autres sites (selixy.dev),
+   puis ce qui est propre aux pages de script et à l'éditeur. */
+@import url("jetons.css");
+@import url("base.css");
+@import url("blocs.css");
+@import url("script.css");
+@import url("editeur.css");
+@import url("medias.css");

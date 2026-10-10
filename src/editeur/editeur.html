@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>PromptAnxiety · éditeur de scripts</title>
+<link rel="stylesheet" href="src/style/style.css">
+<!--MANIFESTE-->
+<script src="src/vendor/vue.global.prod.js"></script>
+<script defer src="src/page/rendu.js"></script>
+<script defer src="src/editeur/app.js"></script>
+</head>
+<body class="editeur">
+<div id="app" v-cloak>
+  <div class="bandeau">
+    <h1>PromptAnxiety</h1>
+    <select v-model="slugOuvert" @change="ouvrir(slugOuvert)">
+      <option value="">Ouvrir un script…</option>
+      <option v-for="m in manifeste" :key="m.slug" :value="m.slug">{{ m.titre }}</option>
+    </select>
+    <button type="button" @click="nouveau">Nouveau</button>
+    <button type="button" @click="$refs.fichier.click()">Importer un .json</button>
+    <input type="file" ref="fichier" accept=".json" hidden @change="importer">
+    <template v-if="serveur">
+      <button type="button" class="principal" @click="enregistrer" :disabled="!modifie">{{ modifie ? "Enregistrer" : "Enregistré" }}</button>
+      <a class="bouton" :href="'Output/' + script.slug + '.html'" target="_blank" rel="noopener">Ouvrir la page</a>
+      <button type="button" class="petit danger" @click="supprimer" v-if="existe">Supprimer</button>
+    </template>
+    <template v-else>
+      <button type="button" class="principal" @click="exporter">Exporter le .json</button>
+    </template>
+    <span class="mini">{{ etat }}</span>
+  </div>
+
+  <div class="colonnes">
+    <div class="formulaire">
+      <h2>Le script</h2>
+      <div class="champ"><label>Identifiant (nom du fichier : minuscules, chiffres, tirets)</label><input v-model.trim="script.slug" @input="script.slug = slugifier(script.slug)" :disabled="serveur && existe"></div>
+      <div class="champ"><label>Titre</label><input v-model="script.titre"></div>
+      <div class="champ"><label>Sous-titre (séparer par « · »)</label><input v-model="script.sous_titre"></div>
+      <div class="champ"><label>Numéro à appeler</label><input v-model="script.numero"></div>
+      <div class="champ"><label>Consigne d'introduction</label><textarea v-model="script.intro"></textarea></div>
+
+      <h2>Les étapes</h2>
+      <div class="bloc-etape" v-for="(et, i) in script.etapes" :key="i">
+        <div class="entete">
+          <h3>{{ i }}. {{ et.titre }}</h3>
+          <button type="button" class="petit" @click="deplacer(script.etapes, i, -1)">↑</button>
+          <button type="button" class="petit" @click="deplacer(script.etapes, i, 1)">↓</button>
+          <button type="button" class="petit danger" @click="retirer(script.etapes, i, 'cette étape')">Supprimer</button>
+        </div>
+        <div class="champ"><label>Titre de l'étape</label><input v-model="et.titre"></div>
+        <div class="champ"><label>La phrase à dire (**gras** pour les mots clés)</label><textarea v-model="et.dire"></textarea></div>
+        <div class="champ"><label>Aide-mémoire (petit texte gris)</label><input v-model="et.aide"></div>
+        <div class="champ"><label>Type de réponses</label><select v-model="et.mode"><option value="une">Une seule réponse (radio)</option><option value="plusieurs">Plusieurs réponses (cases)</option></select></div>
+
+        <div class="bloc-reponse" v-for="(r, j) in et.reponses" :key="j">
+          <div class="entete"><span>Réponse {{ j + 1 }}</span>
+            <button type="button" class="petit" @click="deplacer(et.reponses, j, -1)">↑</button>
+            <button type="button" class="petit" @click="deplacer(et.reponses, j, 1)">↓</button>
+            <button type="button" class="petit danger" @click="retirer(et.reponses, j, 'cette réponse')">×</button>
+          </div>
+          <div class="champ"><label>Ce qu'il répond</label><input v-model="r.texte"></div>
+          <div class="champ"><label>Ma réplique</label><textarea v-model="r.replique"></textarea></div>
+          <div class="champ"><label>Et ensuite (consigne)</label><input v-model="r.suite"></div>
+          <div class="champ"><label>Champ de note (texte d'invite, vide = pas de champ)</label><input v-model="r.note"></div>
+          <div class="bloc-sous" v-for="(s, k) in r.sous" :key="k">
+            <div class="entete"><span>Sous-cas {{ k + 1 }}</span><button type="button" class="petit danger" @click="retirer(r.sous, k, 'ce sous-cas')">×</button></div>
+            <div class="champ"><label>Cas</label><input v-model="s.texte"></div>
+            <div class="champ"><label>Réplique</label><textarea v-model="s.replique"></textarea></div>
+            <div class="champ"><label>Ensuite</label><input v-model="s.suite"></div>
+            <div class="champ"><label>Champ de note</label><input v-model="s.note"></div>
+          </div>
+          <div class="ajout"><button type="button" class="petit" @click="(r.sous || (r.sous = [])).push(sousVide())">+ sous-cas</button></div>
+        </div>
+        <div class="ajout"><button type="button" class="petit" @click="(et.reponses || (et.reponses = [])).push(reponseVide())">+ réponse</button></div>
+        <div class="champ"><label>Champ de note en bas de l'étape (invite, vide = aucun)</label><input v-model="et.note"></div>
+      </div>
+      <div class="ajout"><button type="button" class="petit" @click="script.etapes.push(etapeVide())">+ étape</button></div>
+
+      <h2>Après l'appel</h2>
+      <div class="champ"><label>Ce qu'il faut faire juste après</label><textarea v-model="script.apres"></textarea></div>
+    </div>
+    <div class="apercu" ref="apercu"></div>
+  </div>
+</div>
+</body>
+</html>

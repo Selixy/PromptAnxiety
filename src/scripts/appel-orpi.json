@@ -1,0 +1,141 @@
+{
+  "titre": "Appel agence immobilière (location)",
+  "sous_titre": "3 pièces meublé neuf, quartier [quartier] · 1 250 € CC · réf. [annonce]",
+  "numero": "01 XX XX XX XX",
+  "intro": "Agence [nom], [adresse]. Service location fermé le samedi soir : mail via l'annonce, rappel lundi 9 h. Coche ce qu'on te répond, la réplique suivante apparaît.",
+  "etapes": [
+    {
+      "titre": "Qui décroche",
+      "dire": "« Bonjour, j'appelle pour votre annonce de location du **3 pièces meublé neuf à [ville]**, quartier [quartier], à 1 250 € charges comprises, référence [réf. de l'annonce]. Je peux parler à la personne qui gère ce bien ? »",
+      "mode": "une",
+      "reponses": [
+        { "texte": "C'est la bonne personne, ou elle me passe quelqu'un", "suite": "Note son prénom, puis étape 1.", "note": "Prénom, poste" },
+        { "texte": "La personne est absente, « rappelez lundi »", "replique": "« D'accord. Je peux vous laisser mon nom et mon numéro pour qu'elle me rappelle ? On est deux, dossier complet avec deux garantes, disponibles sous quinze jours. À quelle heure est-elle là lundi ? »", "suite": "Note l'heure, puis va directement à l'étape 5 pour envoyer le mail ce soir.", "note": "Nom de la personne, heure lundi" },
+        { "texte": "Répondeur", "replique": "« Bonjour, [Prénom Nom], j'appelle pour le 3 pièces meublé quartier [quartier] à 1 250 €, référence [réf. de l'annonce]. Nous sommes deux, dossier complet avec deux garantes, disponibles pour emménager sous quinze jours, libres pour visiter de mercredi à samedi. Mon numéro : … Merci, bonne soirée. »", "suite": "Puis étape 5 : mail ce soir, rappel lundi 9 h." }
+      ]
+    },
+    {
+      "titre": "Disponibilité",
+      "dire": "« Est-ce que l'appartement est **toujours disponible**, et à partir de quelle date ? »",
+      "mode": "une",
+      "reponses": [
+        { "texte": "Oui, disponible", "suite": "Note la date, puis étape 2.", "note": "Disponible à partir du…" },
+        { "texte": "Disponible mais des dossiers sont déjà déposés", "replique": "« On peut quand même visiter et déposer le nôtre ? Il est complet, avec deux garantes propriétaires, et on peut signer vite. »", "suite": "Si oui, étape 2.", "note": "Combien de dossiers, depuis quand" },
+        { "texte": "Déjà loué", "replique": "« Dommage. Vous avez **d'autres lots dans la résidence** ou dans la ville, un 3 pièces autour de 1 250 € ? Sinon je vous laisse notre dossier pour le prochain qui se libère. »",
+          "sous": [
+            { "texte": "Il propose un autre bien", "suite": "Note-le et déroule les étapes 2 à 4 pour ce bien.", "note": "Adresse, pièces, loyer" },
+            { "texte": "Rien d'autre", "suite": "Demande son mail pour envoyer le dossier, puis étape 5." }
+          ] }
+      ]
+    },
+    {
+      "titre": "Qui vous êtes",
+      "dire": "« On est **deux étudiants en fin de master**, en **colocation**, on cherche à **rester plusieurs années** et on peut emménager **dans les quinze jours**. Le dossier est complet, avec **deux garantes propriétaires** : une en CDI à 6 000 € net, une à 2 500 €. »",
+      "mode": "une",
+      "reponses": [
+        { "texte": "« Très bien, pas de souci »", "suite": "Étape 3." },
+        { "texte": "« Le propriétaire ne veut pas de colocation »", "replique": "« Même avec un **bail unique** et une **clause de solidarité** ? Chacune des garantes couvre la totalité du loyer, c'est plus sûr qu'un locataire seul. Vous pouvez lui poser la question ? »",
+          "sous": [
+            { "texte": "Il accepte ou va demander", "suite": "Étape 3." },
+            { "texte": "Refus net", "suite": "Demande les autres lots (étape 1, dernier cas), puis étape 5." }
+          ] },
+        { "texte": "« Quels sont vos revenus à vous ? »", "replique": "« On est étudiants, **rattachés fiscalement à nos parents**, donc nos revenus propres sont faibles. C'est exactement pour ça qu'on vient avec deux garantes solides, dont les avis d'impôt et bulletins sont dans le dossier. »",
+          "sous": [
+            { "texte": "Ça lui va", "suite": "Étape 3." },
+            { "texte": "Il parle de Visale ou de garantie", "replique": "« Si le propriétaire préfère Visale, on peut l'obtenir en 48 h, mais on ne peut pas cumuler avec les garantes. Vous préférez quoi ? »", "note": "Sa préférence" },
+            { "texte": "Refus", "replique": "« C'est au propriétaire de trancher, vous pouvez lui soumettre le dossier ? »", "suite": "Puis étape 5." }
+          ] },
+        { "texte": "« Le propriétaire veut des salariés »", "replique": "« On est en fin d'études, donc en entrée dans la vie active dans l'année, et le loyer est garanti par deux cautions solidaires. Est-ce qu'il accepterait de voir le dossier avant de décider ? »",
+          "sous": [
+            { "texte": "Il soumet", "suite": "Étape 3." },
+            { "texte": "Non", "suite": "Autres lots, puis étape 5." }
+          ] }
+      ]
+    },
+    {
+      "titre": "La visite",
+      "dire": "« **Quand est-ce qu'on peut visiter ?** On est libres tous les jours de **mercredi à samedi**, toute la journée. »",
+      "mode": "une",
+      "reponses": [
+        { "texte": "Il propose un créneau", "suite": "Accepte le premier possible, sans réfléchir.", "note": "Jour, heure, lieu de rendez-vous" },
+        { "texte": "Visite groupée ou portes ouvertes", "replique": "« Parfait, on y sera tous les deux avec le dossier imprimé. Vous prenez les dossiers sur place ? »", "note": "Jour, heure" },
+        { "texte": "« Envoyez d'abord le dossier »", "replique": "« D'accord, je vous l'envoie ce soir. Vous voulez quelles pièces exactement, et à quelle adresse ? »", "suite": "Coche ce qu'il demande. Rappel : relevé bancaire, photo, casier sont interdits.", "note": "Adresse mail ou lien de dépôt",
+          "sous": [
+            { "texte": "Pièces d'identité (locataires et garantes)" },
+            { "texte": "Certificats de scolarité ou cartes étudiantes" },
+            { "texte": "3 bulletins de salaire des garantes" },
+            { "texte": "Avis d'impôt 2025 des garantes" },
+            { "texte": "Justificatifs de domicile" },
+            { "texte": "Taxe foncière des garantes (propriétaires)" },
+            { "texte": "Autre chose", "note": "Quoi ?" }
+          ] }
+      ]
+    },
+    {
+      "titre": "Les chambres",
+      "dire": "« L'annonce dit T2 dans le titre et F3 dans le texte : il y a bien **deux chambres fermées** ? »",
+      "mode": "une",
+      "reponses": [
+        { "texte": "Deux chambres fermées" },
+        { "texte": "Une chambre plus séjour à partager", "suite": "Pour deux, c'est bloquant. Demande s'il a un vrai 3 pièces ailleurs." }
+      ]
+    },
+    {
+      "titre": "Les charges et le parking",
+      "dire": "« Les **186 € de charges** comprennent quoi ? Le chauffage, l'eau chaude ? Et la **place de parking** est comprise dans le loyer ? »",
+      "aide": "Pas de voiture : si le parking est en option, ne pas le prendre.",
+      "mode": "plusieurs",
+      "reponses": [
+        { "texte": "Chauffage inclus" },
+        { "texte": "Eau chaude et froide incluses" },
+        { "texte": "Seulement les parties communes", "suite": "Prévoir 80 à 120 € d'énergie en plus par mois." },
+        { "texte": "Parking inclus" },
+        { "texte": "Parking en option payante", "replique": "« On n'en a pas besoin, on peut le retirer du bail ? »" }
+      ]
+    },
+    {
+      "titre": "Le mobilier",
+      "dire": "« Le mobilier, c'est quoi exactement ? Il y a une **table, des chaises, des rangements, de la vaisselle** ? »",
+      "aide": "Les photos montrent : canapé-lit, table basse, deux lits, frigo, four, plaque, hotte, lave-linge. Pas de table ni de chaises visibles.",
+      "mode": "une",
+      "reponses": [
+        { "texte": "Complet, inventaire fourni" },
+        { "texte": "Partiel, à compléter avant l'entrée", "replique": "« D'accord. Un meublé doit avoir literie, table et chaises, rangements, vaisselle : ce sera complété avant la remise des clés ? »", "note": "Ce qui manque, ce qu'il s'engage à ajouter" }
+      ]
+    },
+    {
+      "titre": "Le loyer et les frais",
+      "dire": "« Le **loyer de référence majoré** est indiqué sur le bail ? Et c'est bien **2 128 € de dépôt** et **887 € d'honoraires**, rien d'autre à la signature ? »",
+      "aide": "Si la ville est en encadrement des loyers. Pose la question calmement, c'est une carte pour plus tard.",
+      "mode": "plusieurs",
+      "reponses": [
+        { "texte": "Il donne le loyer de référence", "note": "Montant" },
+        { "texte": "Il ne sait pas ou élude", "suite": "N'insiste pas. On vérifiera sur le simulateur officiel de l'encadrement des loyers." },
+        { "texte": "Dépôt et honoraires confirmés" },
+        { "texte": "Autres montants", "note": "Lesquels" }
+      ]
+    },
+    {
+      "titre": "Le propriétaire",
+      "dire": "« Le propriétaire est un particulier ? Il cherche des locataires qui **restent longtemps** ? Et vous avez **d'autres biens dans cette résidence** ? »",
+      "aide": "Vous voulez rester 3 ans et plus ; un bail meublé fait 1 an renouvelable. L'agence a au moins un T2 au 6e dans l'immeuble.",
+      "mode": "plusieurs",
+      "reponses": [
+        { "texte": "Il veut du long terme", "suite": "Dis que c'est exactement votre projet." },
+        { "texte": "Il veut garder la main (revente, usage perso)", "suite": "Risque de congé au bout d'un an. Ne pas bloquer, continuer à chercher du nu en parallèle." },
+        { "texte": "C'est l'agence qui gère tout (gestion locative)", "suite": "Bon signe : l'agence décide vite et préfère un dossier solide." },
+        { "texte": "D'autres biens dans la résidence", "note": "Lesquels, à quel prix" }
+      ]
+    },
+    {
+      "titre": "Conclure",
+      "dire": "« Merci beaucoup. Je vous **confirme par mail ce soir** avec les premières pièces, et je vous apporte le dossier complet à la visite. Vous préférez le mail de l'agence ou une adresse directe ? »",
+      "mode": "une",
+      "reponses": [
+        { "texte": "Mail de l'agence" },
+        { "texte": "Adresse ou numéro direct", "note": "Mail ou numéro de l'interlocuteur" }
+      ]
+    }
+  ],
+  "apres": "Dès que tu raccroches : mail de confirmation en moins d'une heure (créneau, vos deux noms, « dossier avec deux garantes propriétaires », pièces jointes disponibles : pièces d'identité, certificats de scolarité, et pour la garante du colocataire bulletins et avis d'impôt ce soir). Prévenir l'autre garante pour ses papiers sous deux jours. Si l'appel a échoué, même mail via le formulaire de l'annonce, et rappel lundi 9 h."
+}

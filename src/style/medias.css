@@ -1,0 +1,30 @@
+@media (max-width: 600px) { body { font-size: 15px; } h1 { font-size: 1.55rem; } .cartes { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) { * { transition-duration: .01ms !important; } }
+
+/* Les captures de slides sont des fonds blancs : sur un thème sombre elles
+   éblouissent. On les pose un cran plus bas, et le survol rend l'original. */
+@media (prefers-color-scheme: dark) {
+  /* le point séparateur de la ligne meta est dessiné avec --border :
+     presque invisible sur fond sombre, on le remonte d'un cran */
+  .meta span + span::before { color: var(--border-fort); }
+  figure img:not([src$=".svg"]) { filter: brightness(.88) contrast(1.03);
+                                  transition: filter 120ms ease-out; }
+  figure:hover img { filter: none; }
+}
+
+/* L'impression repasse en clair, y compris depuis un navigateur en thème
+   sombre : tous les jetons sont donc redéfinis, pas seulement les fonds. */
+@media print {
+  :root {
+    --bg-0: #fff; --bg-1: #f6f6f6; --bg-2: #efefef; --bg-3: #e8e8e8;
+    --text: #111; --text-h: #000; --text-dim: #444;
+    --border: #ccc; --border-fort: #aaa;
+    --accent: #2a159d; --accent-fort: #241287; --accent-bg: transparent;
+    --encre-titre: #000;
+    --ombre-1: none; --ombre-2: none; --ombre-3: none;
+    color-scheme: light;
+  }
+  figure img { filter: none; }
+  nav.fil { display: none; } a { color: inherit; border-bottom: none; }
+  h2 { page-break-after: avoid; } blockquote, table { page-break-inside: avoid; }
+}
